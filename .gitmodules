@@ -1,3 +1,6 @@
 [submodule "media"]
 	path = media
 	url = https://github.com/n3nikita/media
+[submodule "blazy-manager-bot"]
+	path = blazy-manager-bot
+	url = https://github.com/n3nikita/blazy-manager-bot
