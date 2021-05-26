@@ -1,0 +1,28 @@
+version: "3"
+
+services: 
+  website:
+    build: 
+      context: ./media
+      dockerfile: ./Dockerfile
+    volumes: 
+      - ./website/dist:/var/www/
+
+  bot:
+    ports:
+      - "3000:80"
+    build:
+      context: ./blazy-manager-bot
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:1.15-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    depends_on:
+      - bot
+      - website
