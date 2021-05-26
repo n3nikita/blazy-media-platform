@@ -6,7 +6,7 @@ services:
       context: ./media
       dockerfile: ./Dockerfile
     volumes: 
-      - ./dist:/var/www/
+      - ./website/dist:/var/www/
 
   bot:
     ports:
@@ -23,6 +23,7 @@ services:
       - "443:443"
     volumes:
       - ./nginx:/etc/nginx/conf.d
+      - ./website/dist:/var/www/
     depends_on:
       - bot
       - website
