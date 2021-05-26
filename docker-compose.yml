@@ -1,10 +1,12 @@
 version: "3"
 
 services: 
-  website:
+  media:
     build: 
       context: ./media
       dockerfile: ./Dockerfile
+    volumes: 
+      - website:/website/dist
 
   bot:
     ports:
@@ -21,6 +23,11 @@ services:
       - "443:443"
     volumes:
       - ./nginx:/etc/nginx/conf.d
+      - website:/website/dist
     depends_on:
       - bot
-      - website
+      - media
+
+volumes: 
+  website:
+    driver: local
