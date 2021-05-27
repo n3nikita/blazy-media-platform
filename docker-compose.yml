@@ -17,29 +17,43 @@ services:
     restart: unless-stopped
 
   nginx:
-    image: nginx:1.15-alpine
-    restart: always
+    image: jonasal/nginx-certbot:latest
+    restart: unless-stopped
+    environment:
+      - CERTBOT_EMAIL=hello@blazy.media
     ports:
-      - "80:80"
-      - "443:443"
+      - 80:80
+      - 443:443
     volumes:
+      - nginx_secrets:/etc/letsencrypt
       - ./nginx:/etc/nginx/conf.d
-      - ./dhparam:/etc/nginx/dhparam
-      - ./certbot/conf:/etc/nginx/ssl
-      - ./certbot/data:/usr/share/nginx/html/letsencrypt
       - website:/website/dist
-    depends_on:
-      - bot
-      - media
 
-  certbot:
-    image: certbot/certbot:latest
-    command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email hello@blazy.media --agree-tos --no-eff-email -d blazy.media -d www.blazy.media -d bot.blazy.media
-    volumes: 
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/logs:/var/log/letsencrypt
-      - ./certbot/data:/usr/share/nginx/html/letsencrypt
+  # nginx:
+  #   image: nginx:1.15-alpine
+  #   restart: always
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./nginx:/etc/nginx/conf.d
+  #     - ./dhparam:/etc/nginx/dhparam
+  #     - ./certbot/conf:/etc/nginx/ssl
+  #     - ./certbot/data:/usr/share/nginx/html/letsencrypt
+  #     - website:/website/dist
+  #   depends_on:
+  #     - bot
+  #     - media
+
+  # certbot:
+  #   image: certbot/certbot:latest
+  #   command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email hello@blazy.media --agree-tos --no-eff-email -d blazy.media -d www.blazy.media -d bot.blazy.media
+  #   volumes: 
+  #     - ./certbot/conf:/etc/letsencrypt
+  #     - ./certbot/logs:/var/log/letsencrypt
+  #     - ./certbot/data:/usr/share/nginx/html/letsencrypt
 
 volumes: 
+  nginx_secrets:
   website:
     driver: local
