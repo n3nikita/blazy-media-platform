@@ -34,7 +34,7 @@ services:
 
   certbot:
     image: certbot/certbot:latest
-    command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email hello@blazy.media --agree-tos --no-eff-email -d blazy.media -d www.blazy.media -d api.blazy.media
+    command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email hello@blazy.media --agree-tos --no-eff-email -d blazy.media -d www.blazy.media -d bot.blazy.media
     volumes: 
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/logs:/var/log/letsencrypt
