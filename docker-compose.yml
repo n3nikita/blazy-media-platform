@@ -10,7 +10,7 @@ services:
 
   bot:
     ports:
-      - "3000:3000"
+      - 3000:3000
     build:
       context: ./blazy-manager-bot
       dockerfile: ./Dockerfile
@@ -25,8 +25,8 @@ services:
       - 80:80
       - 443:443
     volumes:
+      - ./user_conf.d:/etc/nginx/user_conf.d
       - nginx_secrets:/etc/letsencrypt
-      - ./nginx:/etc/nginx/conf.d
       - website:/website/dist
 
   # nginx:
