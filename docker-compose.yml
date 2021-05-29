@@ -11,7 +11,7 @@ services:
 
   bot:
     ports:
-      - 1000:3000
+      - 3000:3000
     build:
       context: ./blazy-manager-bot
       dockerfile: ./Dockerfile
@@ -22,9 +22,9 @@ services:
     restart: unless-stopped
     environment:
       - CERTBOT_EMAIL=hello@blazy.media
-    # ports:
-    #   - 80:80
-    #   - 443:443
+    ports:
+      - 80:80
+      - 443:443
     volumes:
       - ./user_conf.d:/etc/nginx/user_conf.d
       - nginx_secrets:/etc/letsencrypt
