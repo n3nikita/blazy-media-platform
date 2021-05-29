@@ -5,8 +5,8 @@ services:
     build: 
       context: ./media
       dockerfile: ./Dockerfile
-    volumes: 
-      - website:/website/dist
+    ports:
+      - 5000:5000
 
   bot:
     ports:
@@ -27,9 +27,6 @@ services:
     volumes:
       - ./user_conf.d:/etc/nginx/user_conf.d
       - nginx_secrets:/etc/letsencrypt
-      - website:/website/dist
 
 volumes: 
   nginx_secrets:
-  website:
-    driver: local
