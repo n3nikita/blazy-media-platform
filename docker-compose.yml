@@ -7,7 +7,7 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 5000:5000
-    restart: unless-stopped
+    restart: always
 
   bot:
     ports:
@@ -15,11 +15,11 @@ services:
     build:
       context: ./blazy-manager-bot
       dockerfile: ./Dockerfile
-    restart: unless-stopped
+    restart: always
 
   nginx:
     image: jonasal/nginx-certbot:latest
-    restart: unless-stopped
+    restart: always
     environment:
       - CERTBOT_EMAIL=hello@blazy.media
     ports:
